@@ -117,9 +117,12 @@ typedef uint8_t spinlock_t;
 #if defined(CONFIG_ARCH_HAVE_TESTSET) && defined(CONFIG_SMP) \
     && !defined(CONFIG_ARCH_CHIP_LC823450) \
     && !defined(CONFIG_ARCH_CHIP_CXD56XX) \
-    && !defined(CONFIG_ARCH_CHIP_RP2040)
+    && !defined(CONFIG_ARCH_CHIP_RP2040) \
+    && !defined(CONFIG_ARCH_CHIP_RP23XX)
 static inline_function spinlock_t up_testset(FAR volatile spinlock_t *lock)
 {
+  // FIXME: do we need to remove FAR annotation from param definition?
+  // More dependent and unrelated commits need to be ported from NuttX then it seems...
   spinlock_t ret = SP_UNLOCKED;
 
   __asm__ __volatile__
