@@ -1565,6 +1565,22 @@ config ARCH_BOARD_ADAFRUIT_QT_PY_RP2040
 		This is a port to the Adafruit QT Py RP2040 board.
 		Support is derived from Raspberry Pi Pico support.
 
+config ARCH_BOARD_RASPBERRYPI_PICO_2
+	bool "Raspberry Pi Pico 2 board (not Pico, not W)"
+	depends on ARCH_CHIP_RP23XX
+	select ARCH_HAVE_LEDS
+	---help---
+		This is a port to the Raspberry Pi Pico 2 board.
+
+config ARCH_BOARD_PIMORONI_PICO_2_PLUS
+	bool "Pimoroni Pico 2 Plus"
+	depends on ARCH_CHIP_RP23XX
+	select ARCH_HAVE_LEDS
+	select ARCH_HAVE_BUTTONS
+	select ARCH_HAVE_IRQBUTTONS
+	select RP23XX_RP2350B
+	---help---
+		This is a port to the Pimoroni Pico 2 Plus board.
 config ARCH_BOARD_RX65N
 	bool "RX65N renesas board"
 	depends on ARCH_CHIP_R5F565NEDDFC
@@ -2858,6 +2874,8 @@ config ARCH_BOARD
 	default "spresense"                if ARCH_BOARD_SPRESENSE
 	default "xx3803"                   if ARCH_BOARD_XX3803
 	default "xx3823"                   if ARCH_BOARD_XX3823
+	default "raspberrypi-pico-2"        if ARCH_BOARD_RASPBERRYPI_PICO_2
+	default "pimoroni-pico-2-plus"      if ARCH_BOARD_PIMORONI_PICO_2_PLUS
 
 comment "Common Board Options"
 
@@ -3117,6 +3135,12 @@ source "boards/arm/rp2040/adafruit-kb2040/Kconfig"
 endif
 if ARCH_BOARD_ADAFRUIT_QT_PY_RP2040
 source "boards/arm/rp2040/adafruit-qt-py-rp2040/Kconfig"
+endif
+if ARCH_BOARD_RASPBERRYPI_PICO_2
+source "boards/arm/rp23xx/raspberrypi-pico-2/Kconfig"
+endif
+if ARCH_BOARD_PIMORONI_PICO_2_PLUS
+source "boards/arm/rp23xx/pimoroni-pico-2-plus/Kconfig"
 endif
 if ARCH_BOARD_ARDUINO_DUE
 source "boards/arm/sam34/arduino-due/Kconfig"
@@ -3688,6 +3712,9 @@ source "boards/arm/stm32f0l0g0/common/Kconfig"
 endif
 if ARCH_CHIP_RP2040
 source "boards/arm/rp2040/common/Kconfig"
+endif
+if ARCH_CHIP_RP23XX
+source "boards/arm/rp23xx/common/Kconfig"
 endif
 endif
 
